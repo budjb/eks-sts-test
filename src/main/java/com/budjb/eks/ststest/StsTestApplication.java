@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import software.amazon.awssdk.auth.credentials.WebIdentityTokenFileCredentialsProvider;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
@@ -20,7 +21,7 @@ public class StsTestApplication {
 
     @GetMapping("/")
     void doStuff() {
-        S3Client client = S3Client.create();
+        S3Client client = S3Client.builder().credentialsProvider(WebIdentityTokenFileCredentialsProvider.create()).build();
 
         client.createBucket(CreateBucketRequest.builder().bucket("bud-test-bucket").build());
         client.putObject(PutObjectRequest.builder().bucket("bud-test-bucket").key("foo").build(), RequestBody.fromString("bar"));
