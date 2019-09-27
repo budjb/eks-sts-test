@@ -19,7 +19,7 @@ ext {
 }
 
 dependencies {
-    implementation platform('software.amazon.awssdk:bom:2.5.29')
+    implementation platform('software.amazon.awssdk:bom:2.7.36')
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
